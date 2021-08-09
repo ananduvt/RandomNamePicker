@@ -57,6 +57,7 @@ function reset(){
 window.onload = function() {
 	pickList = names.slice();
 	loadNames();
+
 };
 
 function readFile(){

@@ -5,29 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link rel="stylesheet" href="main.css" />
-		<script src="main.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 		
-        <title>Title</title>
+		<script src="main.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+		
+        <title>Jackpot</title>
     </head>
+	
     <body>
-
+	
         <div class="header"> 
-		Heading 
+			<div class="logo">
+			</div>
+			
+			<div class="title display-1">
+				Jackpot
+			</div>
+			
+			<div class="nav">
+				<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Settings</button> -->
+				 <button type="button" class="btn btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Settings</button>
+				<button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+			</div>
 		</div>
 		
 		<div id="pickList" class="pickList">
 		
 		</div>
+	
+		<div class="controls">
 		
-		<button onclick="selectWinner()">Select Winner
+		<button  type="button" class="btn btn-success" onclick="selectWinner()">Select Winner
 		</button>
 		
-		<button onclick="reset()">Reset
-		</button>
-		
-		<button onclick="readFile()">Read File
-		</button>
-		
+		</div>
 		
 		<input type="file" name="inputfile"
             id="inputfile" onchange="fileRead(this)" hidden>
@@ -35,5 +47,16 @@
         <div id="selectedList" class="selectedList">
 		
 		</div>
+
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		  <div class="offcanvas-header">
+			<h5 id="offcanvasRightLabel">Settings</h5>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body">
+			<button type="button" class="btn btn-primary" onclick="readFile()">Load From File</button>
+		  </div>
+		</div>
+				
     </body>
 </html>
