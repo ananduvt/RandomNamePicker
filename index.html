@@ -30,8 +30,9 @@
 			</div>
 		</div>
 		
-		<div id="pickList" class="pickList">
-		
+		<div id="pick" class="pick">
+			<h3>Participants</h3>
+			<div id="pickList" class="pickList"></div>
 		</div>
 	
 		<div class="controls">
@@ -44,8 +45,9 @@
 		<input type="file" name="inputfile"
             id="inputfile" onchange="fileRead(this)" hidden>
 		
-        <div id="selectedList" class="selectedList">
-		
+        <div id="selected" class="selected">
+			<h4>Winners</h4>
+			<div id="selectedList" class="selectedList"></div>
 		</div>
 
 		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -54,6 +56,11 @@
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		  </div>
 		  <div class="offcanvas-body">
+		  
+			<p class="lead">
+				Load names from file
+			</p>
+			
 			<button type="button" class="btn btn-primary" onclick="readFile()">Load From File</button>
 		  </div>
 		</div>
