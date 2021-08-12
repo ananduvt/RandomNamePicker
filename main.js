@@ -18,7 +18,7 @@ function loadNames(){
 
 function addToSelectedList(value){
 	var innerDiv = document.createElement('div');
-	innerDiv.className = 'selectedListNames';
+	innerDiv.className = 'selectedListNames h4 shadow';
 	innerDiv.innerHTML  = value;
 	document.getElementById("selectedList").appendChild(innerDiv);
 }
@@ -40,6 +40,7 @@ function selectWinner(){
 		clearPickList();
 		loadNames();
 		addToSelectedList(item);
+		showWinner(); 
 	}
 	else{
 		window.alert("Names Over");
@@ -51,7 +52,10 @@ function reset(){
 	pickList = names.slice();
 	loadNames();
 	selectedList = [];
-	clearSelectedList()
+	clearSelectedList();
+	hideWinner();
+	$("#toastReset").toast({ delay: 1000 });
+	$("#toastReset").toast('show');	
 }
 
 window.onload = function() {
@@ -70,14 +74,31 @@ function fileRead(input) {
 	reader.readAsText(file);
 
 	reader.onload = function() {
-		console.log(reader.result);
-		var textByLine = reader.result.split("\n")
-		console.log(textByLine);
+		// console.log(reader.result);
+		var textByLine = reader.result.split("\n");
+		// console.log(textByLine);
 		names = textByLine.slice();
 		reset();
+		
+		$(".offcanvas").toggle();
+		$(".offcanvas-backdrop").hide();
+		
+		$("#toastLoad").toast({ delay: 2000 });
+		$("#toastLoad").toast('show');
 	};
 
 	reader.onerror = function() {
+		window.alert("File Load Failed");
 		console.log(reader.error);
 	};
+}
+
+function showWinner() {
+  var element = document.getElementById("selected");
+  element.classList.remove("hide");
+}
+
+function hideWinner() {
+  var element = document.getElementById("selected");
+  element.classList.add("hide");
 }

@@ -1,3 +1,7 @@
+body {
+    background-color: #fbfbfb !important;
+}
+
 .header{
 	display: flex;
 }
@@ -33,40 +37,132 @@
     display: flex;
     /* margin-top: 25px; */
     /* margin-bottom: 25px; */
-    border: 1px black solid;
+    /* border: 1px black solid; */
     border-radius: 15px;
     margin: 25px 25px;
     padding: 15px 15px;
+	flex-wrap: wrap;
+    height: 35vh;
+    overflow: hidden;
 }
 
 .selectedList{
-	color:green;
+	/* color:green; */
 	display: flex;
-	 border: 1px black solid;
+	 /* border: 1px black solid; */
     border-radius: 15px;
-    margin: 25px 25px;
+    margin: 10px 25px;
     padding: 15px 15px;
+	flex-wrap: wrap;
 }
 
 .pickListNames {
-    border: 1px solid;
-    border-radius: 5px;
+    /* border: 1px solid; */
+    border-radius: 20px;
     padding: 10px;
     width: fit-content;
     margin: 5px;
-	margin: 0 auto;
+	margin: 5px auto;
+	height: fit-content; 
+	flex-wrap: wrap;
+	color: black;
+	position: relative;
+    animation-name: totop;
+    animation-duration: 50s;
+    animation-delay: 3s;
+}
+
+.pickListNames:nth-child(n) {
+  background: #FFDED7;
+}
+
+.pickListNames:nth-child(2n) {
+  background: #FFF2D7;
+}
+
+.pickListNames:nth-child(3n) {
+  background: #F8FFD7;
+}
+
+.pickListNames:nth-child(4n) {
+  background: #E4FFD7;
+}
+
+.pickListNames:nth-child(5n) {
+  background: #D7FFDE;
+}
+
+.pickListNames:nth-child(6n) {
+  background: #D7FFF2;
 }
 
 .selectedListNames {
-	border: 1px solid;
+	/* border: 1px solid; */
     border-radius: 5px;
     padding: 10px;
     width: fit-content;
     margin: 5px;
-	margin: 0 auto;
+	margin: 5px auto;
+	-webkit-text-fill-color: transparent;
+    -webkit-background-clip: text !important;
+}
+
+.selectedListNames:nth-child(n){
+	background: linear-gradient( to right, hsl(133deg 85% 36%), hsl(227deg 82% 60%) );
+}
+
+.selectedListNames:nth-child(2n){
+	background: linear-gradient( to right, hsl(351deg 100% 51%), hsl(227deg 82% 60%) );
+}
+
+.selectedListNames:nth-child(3n){
+	background: linear-gradient( to right, hsl(224deg 100% 51%), hsl(72deg 97% 50%) );
+}
+
+.selectedListNames:nth-child(4n){
+	background: linear-gradient( to right, hsl(97deg 100% 51%), hsl(0deg 97% 50%) );
+}
+
+.selectedListNames:nth-child(5n){
+	background: linear-gradient( to right, hsl(224deg 100% 51%), hsl(310deg 97% 50%) );
 }
 
 .controls{
     text-align: center;
 	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+.pick h3, .selected h2 {
+    text-align: center;
+}
+
+.selected h2 {
+    margin-top: 20px;
+}
+
+.lead button {
+    float: right;
+}
+
+.hide{
+	display:none;
+}
+
+.toast{
+	width: fit-content !important;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	padding: 0px 30px;
+    border: 1px green solid !important;
+    border-radius: 30px !important;
+}
+
+@keyframes totop {
+    0%   {left:0px; bottom:0px;}
+    /* 25%  {left:0px; bottom:100px;} */
+    /* 50%  {left:0px; bottom:200px;} */
+    /* 75%  {left:0px; bottom:300px;} */
+    100% {left:0px; bottom:400px;}
 }

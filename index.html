@@ -9,13 +9,14 @@
 		
 		<script src="main.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-		
-        <title>Jackpot</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>		
+        
+		<title>Jackpot</title>
     </head>
 	
     <body>
-	
-        <div class="header"> 
+		<!-- logo, title, settings, reset -->
+	    <div class="header"> 
 			<div class="logo">
 			</div>
 			
@@ -25,45 +26,59 @@
 			
 			<div class="nav">
 				<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Settings</button> -->
-				 <button type="button" class="btn btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Settings</button>
+				<button type="button" class="btn btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Settings</button>
 				<button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
 			</div>
 		</div>
 		
+		<!-- winners  -->
+		<div id="selected" class="selected hide">
+			<h2>Winners</h2>
+			<div id="selectedList" class="selectedList"></div>
+		</div>
+		
+		<!-- controls -->
+		<div class="controls">	
+			<button  type="button" class="btn btn-success" onclick="selectWinner()">Select Winner</button>	
+		</div>
+		
+		<!-- participants -->
 		<div id="pick" class="pick">
 			<h3>Participants</h3>
-			<div id="pickList" class="pickList"></div>
-		</div>
-	
-		<div class="controls">
-		
-		<button  type="button" class="btn btn-success" onclick="selectWinner()">Select Winner
-		</button>
-		
+			<div id="pickList" class="pickList shadow"></div>
 		</div>
 		
+		<!-- file input -->
 		<input type="file" name="inputfile"
             id="inputfile" onchange="fileRead(this)" hidden>
 		
-        <div id="selected" class="selected">
-			<h4>Winners</h4>
-			<div id="selectedList" class="selectedList"></div>
-		</div>
-
+		<!-- settings canvas -->
 		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 		  <div class="offcanvas-header">
 			<h5 id="offcanvasRightLabel">Settings</h5>
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		  </div>
 		  <div class="offcanvas-body">
-		  
 			<p class="lead">
 				Load names from file
+				<button type="button" class="btn btn-primary" onclick="readFile()">Load</button>
 			</p>
-			
-			<button type="button" class="btn btn-primary" onclick="readFile()">Load From File</button>
 		  </div>
 		</div>
-				
+		
+		<!-- reset toast -->
+		<div id="toastReset" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		  <div class="toast-body text-center h5">
+			Reset Successful
+		  </div>
+		</div>
+		
+		<!-- file load toast -->
+		<div id="toastLoad" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		  <div class="toast-body text-center h5">
+			File Load Successful
+		  </div>
+		</div>
+		
     </body>
 </html>
