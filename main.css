@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+
 body {
     background-color: #fbfbfb !important;
 }
@@ -68,8 +70,10 @@ body {
 	color: black;
 	position: relative;
     animation-name: totop;
-    animation-duration: 50s;
+    animation-duration: 30s;
     animation-delay: 3s;
+	animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .pickListNames:nth-child(n) {
@@ -165,4 +169,99 @@ body {
     /* 50%  {left:0px; bottom:200px;} */
     /* 75%  {left:0px; bottom:300px;} */
     100% {left:0px; bottom:400px;}
+}
+
+.modal-content{
+	background-color:unset !important;
+	border: none !important;
+}
+
+.winner{
+	
+	font-size: 60px;
+    color: #fff;
+    position: relative;
+    top: 230px;
+    width: max-content;
+    padding: 20px 10px;
+    text-align: center;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+	animation-name: fadein;
+	animation-duration: 8s;
+}
+
+.congrats {
+	color: #fff;
+	display:contents;
+	position: relative;
+	top: 140px;
+	width: 550px;
+	height: 100px;
+	padding: 20px 10px;
+	text-align: center;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}
+
+h1 {
+	transform-origin: 50% 50%;
+	font-size: 50px;
+	font-family: 'Sigmar One', cursive;
+	cursor: pointer;
+	z-index: 2;
+	position: absolute;
+	top: 100px;
+	text-align: center;
+	width: 100%;
+
+}
+
+.blob {
+	height: 50px;
+	width: 50px;
+	color: #ffcc00;
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	z-index: 1;
+	font-size: 30px;
+	display: none;	
+}
+
+.winnerClose{
+    position: relative;
+    top: 270px;
+    margin: 0 auto;	
+	animation-name: fadein;
+	animation-duration: 15s;
+}
+.modal-backdrop {
+    opacity: 0.95 !important;
+}
+
+@keyframes fadein {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+.winnerBtn {
+	color: #494949 !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #ffffff;
+	padding: 20px;
+	border: 4px solid #494949 !important;
+	display: inline-block;
+	transition: all 0.4s ease 0s;
+}
+
+
+.winnerBtn:hover {
+	color: #ffffff !important;
+	background: #10c73e;
+	border-color: #10c73e !important;
+	transition: all 0.4s ease 0s;
 }

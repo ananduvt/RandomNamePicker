@@ -5,8 +5,19 @@ var names = new Array('Barbara McFell',
                       'Bob Bobson');
 var pickList = [];
 var selectedList = [];
+var winner = '';
 
-function loadNames(){
+window.onload = function() {
+	pickList = names.slice();
+	loadNamesToPickList();
+	
+	var numberOfStars = 100;
+	for (var i = 0; i < numberOfStars; i++) {
+	  $('.congrats').append('<div class="blob fa fa-star ' + i + '"></div>');
+	}	
+};
+
+function loadNamesToPickList(){
 	pickList.forEach(loadValue);
 	function loadValue(value){
 		var innerDiv = document.createElement('div');
@@ -34,35 +45,36 @@ function clearPickList(){
 function selectWinner(){
 	if(pickList.length > 0){
 		var index = Math.floor(Math.random()*pickList.length)
-		var item = pickList[index];
-		window.alert(item);
+		winner = pickList[index];
+		$("#winner").text(winner);
+		$("#winnerModal").modal('show');
+
+		congratsAnime();
+		
 		pickList.splice(index,1);
 		clearPickList();
-		loadNames();
-		addToSelectedList(item);
-		showWinner(); 
+		loadNamesToPickList();
 	}
 	else{
 		window.alert("Names Over");
 	}
 }
 
+function loadWinners(){
+	addToSelectedList(winner);
+	showWinnersDiv(); 
+}
+
 function reset(){
 	clearPickList();
 	pickList = names.slice();
-	loadNames();
+	loadNamesToPickList();
 	selectedList = [];
 	clearSelectedList();
 	hideWinner();
 	$("#toastReset").toast({ delay: 1000 });
 	$("#toastReset").toast('show');	
 }
-
-window.onload = function() {
-	pickList = names.slice();
-	loadNames();
-
-};
 
 function readFile(){
 	document.getElementById("inputfile").click();
@@ -74,14 +86,10 @@ function fileRead(input) {
 	reader.readAsText(file);
 
 	reader.onload = function() {
-		// console.log(reader.result);
 		var textByLine = reader.result.split("\n");
-		// console.log(textByLine);
 		names = textByLine.slice();
+		// console.log(names);
 		reset();
-		
-		$(".offcanvas").toggle();
-		$(".offcanvas-backdrop").hide();
 		
 		$("#toastLoad").toast({ delay: 2000 });
 		$("#toastLoad").toast('show');
@@ -93,7 +101,7 @@ function fileRead(input) {
 	};
 }
 
-function showWinner() {
+function showWinnersDiv() {
   var element = document.getElementById("selected");
   element.classList.remove("hide");
 }
@@ -101,4 +109,59 @@ function showWinner() {
 function hideWinner() {
   var element = document.getElementById("selected");
   element.classList.add("hide");
+}
+
+function congratsAnime(){
+	resetAnime();
+	animateText();
+	animateBlobs();
+}
+
+function resetAnime() {
+	$.each($('.blob'), function(i) {
+		TweenMax.set($(this), { x: 0, y: 0, opacity: 1 });
+	});
+	
+	TweenMax.set($('h1'), { scale: 1, opacity: 1, rotation: 0 });
+}
+
+function animateText() {
+		TweenMax.from($('h1'), 0.8, {
+		scale: 0.4,
+		opacity: 0,
+		rotation: 25,
+		ease: Back.easeOut.config(4),
+	});
+}
+	
+function animateBlobs() {
+	
+	var xSeed = _.random(350, 380);
+	var ySeed = _.random(120, 170);
+	
+	$.each($('.blob'), function(i) {
+		var $blob = $(this);
+		var speed = _.random(1, 5);
+		var rotation = _.random(5, 100);
+		var scale = _.random(0.8, 1.5);
+		var x = _.random(-xSeed, xSeed);
+		var y = _.random(-ySeed, ySeed);
+
+		TweenMax.to($blob, speed, {
+			x: x,
+			y: y,
+			ease: Power1.easeOut,
+			opacity: 0,
+			rotation: rotation,
+			scale: scale,
+			onStartParams: [$blob],
+			onStart: function($element) {
+				$element.css('display', 'block');
+			},
+			onCompleteParams: [$blob],
+			onComplete: function($element) {
+				$element.css('display', 'none');
+			}
+		});
+	});
 }

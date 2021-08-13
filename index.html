@@ -5,11 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link rel="stylesheet" href="main.css" />
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
 		
 		<script src="main.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>		
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>		 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>		
         
 		<title>Jackpot</title>
     </head>
@@ -39,7 +43,9 @@
 		
 		<!-- controls -->
 		<div class="controls">	
-			<button  type="button" class="btn btn-success" onclick="selectWinner()">Select Winner</button>	
+			<!-- <button  type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#winnerModal" onclick="selectWinner()">Select Winner</button>	 -->
+			<!-- <button  type="button" class="btn btn-success"  onclick="selectWinner()">Select Winner</button>	 -->
+			<div class="button_cont" align="center"><a class="winnerBtn" onclick="selectWinner()">Select Winner</a></div>
 		</div>
 		
 		<!-- participants -->
@@ -61,7 +67,7 @@
 		  <div class="offcanvas-body">
 			<p class="lead">
 				Load names from file
-				<button type="button" class="btn btn-primary" onclick="readFile()">Load</button>
+				<button type="button" class="btn btn-primary" onclick="readFile()" data-bs-dismiss="offcanvas">Load</button>
 			</p>
 		  </div>
 		</div>
@@ -77,6 +83,30 @@
 		<div id="toastLoad" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 		  <div class="toast-body text-center h5">
 			File Load Successful
+		  </div>
+		</div>
+		
+		<!--Winner Modal -->
+		<div class="modal fade" id="winnerModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <!-- <div class="modal-header"> -->
+				<!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+				<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+			  <!-- </div> -->
+			  <!-- <div class="modal-body"> -->
+				<!-- ... -->
+			  <!-- </div> -->
+			  <!-- <div class="modal-footer"> -->
+				<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+			  <!-- </div> -->
+				<div class="congrats">
+					<h1 onclick="congratsAnime()">Congratulations!</h1>
+					<div id="winner" class="winner"></div>
+				</div>			  
+			  <button type="button" class="btn btn-outline-success winnerClose" data-bs-dismiss="modal" onclick="loadWinners()">Close</button>			  
+			</div>
 		  </div>
 		</div>
 		
