@@ -1,8 +1,8 @@
-var names = new Array('Barbara McFell',
-                      'Tempo McKeteketly',
-                      'Maonga Irpaae',
-                      'Jose Tunisia',
-                      'Bob Bobson');
+var names = new Array('Barbara McFell Tempo McKeteketly',
+                      'Tempo McKeteketly Maonga Irpaae',
+                      'Maonga Irpaae Jose Tunisia',
+                      'Jose Tunisia Bob Bobson',
+                      'Bob Bobson Barbara McFell');
 var pickList = [];
 var selectedList = [];
 var winner = '';
@@ -144,6 +144,7 @@ function congratsAnime(){
 	animateText();
 	animateBlobs();
 	confettiAnime();
+	resetAnime();
 }
 
 function resetAnime() {
@@ -172,7 +173,7 @@ function animateBlobs() {
 		var $blob = $(this);
 		var speed = _.random(1, 5);
 		var rotation = _.random(5, 100);
-		var scale = _.random(0.8, 1.5);
+		var scale = _.random(0.8, 2.5);
 		var x = _.random(-xSeed, xSeed);
 		var y = _.random(-ySeed, ySeed);
 

@@ -194,14 +194,14 @@ body {
 .winner{
 	font-size: 60px;
     color: #fff;
-    position: relative;
-    top: 230px;
+    position: absolute;
+    top: 75px;
     width: max-content;
     padding: 20px 10px;
-    text-align: center;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
+    /* text-align: center; */
+    /* margin: 0 auto; */
+    /* left: 0; */
+    /* right: 0; */
 	animation-name: fadein;
 	animation-duration: 2s;
 	font-weight: 500;
@@ -214,7 +214,7 @@ body {
 
 .congrats {
 	color: #fff;
-	display:contents;
+	display:flex;
 	position: relative;
 	top: 140px;
 	width: 550px;
@@ -224,6 +224,7 @@ body {
 	margin: 0 auto;
 	left: 0;
 	right: 0;
+	justify-content: center;
 }
 
 h1 {
@@ -233,7 +234,7 @@ h1 {
 	cursor: pointer;
 	z-index: 2;
 	position: absolute;
-	top: 100px;
+	/* top: 100px; */
 	text-align: center;
 	width: 100%;
 
@@ -242,13 +243,29 @@ h1 {
 .blob {
 	height: 50px;
 	width: 50px;
-	color: #ffcc00;
+	/* color: #ffcc00; */
 	position: absolute;
 	top: 45%;
 	left: 45%;
 	z-index: 1;
 	font-size: 30px;
 	display: none;	
+}
+
+.blob:nth-child(n) {
+	color: red;
+}
+
+.blob:nth-child(2n) {
+	color: green;
+}
+
+.blob:nth-child(3n) {
+	color: blue;
+}
+
+.blob:nth-child(4n) {
+	colour: yellow
 }
 
 .winnerClose{
