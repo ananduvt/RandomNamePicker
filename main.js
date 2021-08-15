@@ -7,14 +7,24 @@ var pickList = [];
 var selectedList = [];
 var winner = '';
 
+var keyFrames = '\
+	@keyframes totop {\
+	  0%   {left:0px; bottom:0px;}\
+	  100% {left:0px; bottom:A_DYNAMIC_VALUEpx;}\
+	}';
+	
 window.onload = function() {
 	pickList = names.slice();
 	loadNamesToPickList();
 	
+	// for congrats anime
 	var numberOfStars = 100;
 	for (var i = 0; i < numberOfStars; i++) {
 	  $('.congrats').append('<div class="blob fa fa-star ' + i + '"></div>');
 	}	
+	
+	$("#toastStartup").toast({ delay: 3000 });
+	$("#toastStartup").toast('show');	
 };
 
 function loadNamesToPickList(){
@@ -25,6 +35,20 @@ function loadNamesToPickList(){
 		innerDiv.innerHTML  = value;
 		document.getElementById("pickList").appendChild(innerDiv);
 	}
+	
+	var listHeight= $(".listContainer").height();
+	var pickHeight = $(".pickList").prop('scrollHeight');
+	
+	if(listHeight < pickHeight){
+		animeHeightSet(pickHeight - listHeight);
+	}
+}
+
+function animeHeightSet(value){
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, value);
+		document.getElementsByTagName('head')[0].appendChild(style);
 }
 
 function addToSelectedList(value){
@@ -50,6 +74,9 @@ function selectWinner(){
 		$("#winnerModal").modal('show');
 
 		congratsAnime();
+		setTimeout(function(){
+			congratsAnime();
+		},2000);
 		
 		pickList.splice(index,1);
 		clearPickList();
@@ -60,7 +87,7 @@ function selectWinner(){
 	}
 }
 
-function loadWinners(){
+function loadWinners(){	
 	addToSelectedList(winner);
 	showWinnersDiv(); 
 }
@@ -112,9 +139,11 @@ function hideWinner() {
 }
 
 function congratsAnime(){
+	
 	resetAnime();
 	animateText();
 	animateBlobs();
+	confettiAnime();
 }
 
 function resetAnime() {
@@ -130,7 +159,7 @@ function animateText() {
 		scale: 0.4,
 		opacity: 0,
 		rotation: 25,
-		ease: Back.easeOut.config(4),
+		ease: Back.easeOut.config(6),
 	});
 }
 	
@@ -165,3 +194,38 @@ function animateBlobs() {
 		});
 	});
 }
+
+var colors = [ "#FF0000",'#FF8000', "#FFFF00","#80FF00","#00FF00","#00FF80","#0000FF","#8000FF","#FF00FF"];
+
+function confettiAnime() {
+ 
+	confettiThrow();
+	
+	let x = setInterval(function() {
+		confettiThrow();
+	}, 1000);
+	
+	setTimeout(function(){
+		clearInterval(x);
+	},1500);		
+}
+
+function confettiThrow(){
+	for(i=0;i<10;i++){
+		confetti({
+		particleCount: 9,
+		angle: 60,
+		spread: 150,
+		origin: { x: 0 },
+		colors: colors,
+	  });
+	  confetti({
+		particleCount: 9,
+		angle: 120,
+		spread: 150,
+		origin: { x: 1 },
+		colors: colors,
+	  });
+	}
+}
+
