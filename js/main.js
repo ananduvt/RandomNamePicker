@@ -1,8 +1,10 @@
-var names = new Array('Barbara McFell Tempo McKeteketly',
-                      'Tempo McKeteketly Maonga Irpaae',
-                      'Maonga Irpaae Jose Tunisia',
-                      'Jose Tunisia Bob Bobson',
-                      'Bob Bobson Barbara McFell');
+// need lot refactoring variables & functions
+
+var names = new Array('aaa',
+                      'bbb',
+                      'ccc',
+                      'ddd',
+                      'eee');
 var pickList = [];
 var selectedList = [];
 var winner = '';
@@ -28,6 +30,7 @@ window.onload = function() {
 };
 
 function loadNamesToPickList(){
+	document.getElementById("pickList").innerHTML ='';
 	pickList.forEach(loadValue);
 	function loadValue(value){
 		var innerDiv = document.createElement('div');
@@ -45,25 +48,32 @@ function loadNamesToPickList(){
 }
 
 function animeHeightSet(value){
-		var style = document.createElement('style');
-		style.type = 'text/css';
-		style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, value);
-		document.getElementsByTagName('head')[0].appendChild(style);
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, value);
+	document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-function addToSelectedList(value){
-	var innerDiv = document.createElement('div');
-	innerDiv.className = 'selectedListNames h4 shadow';
-	innerDiv.innerHTML  = value;
-	document.getElementById("selectedList").appendChild(innerDiv);
+function addToSelectedList(){
+	clearSelectedList();
+	
+	selectedList.forEach(loadValue);
+	function loadValue(value){
+		var innerDiv = document.createElement('div');
+		innerDiv.className = 'selectedListNames h4 shadow';
+		innerDiv.innerHTML  = value;
+		document.getElementById("selectedList").appendChild(innerDiv);
+	}
+	
+	// var innerDiv = document.createElement('div');
+	// innerDiv.className = 'selectedListNames h4 shadow';
+	// innerDiv.innerHTML  = value;
+	// document.getElementById("selectedList").appendChild(innerDiv);
+	showWinnersDiv(); 
 }
 
 function clearSelectedList(){
 	document.getElementById("selectedList").innerHTML =''
-}
-
-function clearPickList(){
-	document.getElementById("pickList").innerHTML =''
 }
 
 function selectWinner(){
@@ -79,7 +89,7 @@ function selectWinner(){
 		},2000);
 		
 		pickList.splice(index,1);
-		clearPickList();
+		selectedList.push(winner);
 		loadNamesToPickList();
 	}
 	else{
@@ -88,12 +98,10 @@ function selectWinner(){
 }
 
 function loadWinners(){	
-	addToSelectedList(winner);
-	showWinnersDiv(); 
+	addToSelectedList();
 }
 
 function reset(){
-	clearPickList();
 	pickList = names.slice();
 	loadNamesToPickList();
 	selectedList = [];
@@ -113,9 +121,9 @@ function fileRead(input) {
 	reader.readAsText(file);
 
 	reader.onload = function() {
-		var textByLine = reader.result.split("\n");
-		names = textByLine.slice();
-		// console.log(names);
+		var textByLine = reader.result.split("\r\n");
+		array = textByLine.slice();
+		names = array.filter(item => item);
 		reset();
 		
 		$("#toastLoad").toast({ delay: 2000 });
@@ -137,6 +145,17 @@ function hideWinner() {
   var element = document.getElementById("selected");
   element.classList.add("hide");
 }
+
+function showWinnersList() {
+  var element = document.getElementById("winnersList");
+  element.classList.remove("hide");
+}
+
+function hideWinnerList() {
+  var element = document.getElementById("winnersList");
+  element.classList.add("hide");
+}
+
 
 function congratsAnime(){
 	
@@ -230,3 +249,93 @@ function confettiThrow(){
 	}
 }
 
+function settingsOpened(){
+	loadWinnersList(selectedList);
+	loadParticipantList(names);
+}
+
+function loadWinnersList(list){
+	$(".winnersList").empty();
+	list.forEach(loadValue);
+	 
+	function loadValue(value){
+		var innerDiv1 = document.createElement('li');
+		var innerDiv2 = document.createElement('input');
+		
+		innerDiv2.type ='checkbox';
+		innerDiv2.checked  = true;
+		innerDiv2.name  = value;
+		innerDiv2.classList.add("winnerCheckbox");
+		
+		innerDiv1.append(innerDiv2);
+		innerDiv1.append(value);
+		$(".winnersList").append(innerDiv1);
+		showWinnersList();
+	}
+	$(document).ready(function() {
+		$('.winnerCheckbox').change(function() {
+			name = $(this)[0].name;
+			pickList.push(name);
+			selectedList.splice(selectedList.indexOf(name),1);
+			loadParticipantList(names);
+			loadWinnersList(selectedList);
+			loadNamesToPickList();
+			addToSelectedList();
+			if(selectedList.length === 0){
+				hideWinner();
+				hideWinnerList();
+			}
+		});
+	});
+}
+
+function loadParticipantList(list){
+	$(".participantList").empty();
+	
+	list.forEach(loadValue);
+	 
+	function loadValue(value){
+		var innerDiv1 = document.createElement('li');
+		var innerDiv2 = document.createElement('input');
+		
+		innerDiv2.type ='checkbox';
+		if(pickList.includes(value)){
+			innerDiv2.checked  = true;
+		}
+		innerDiv2.name  = value;
+		innerDiv2.classList.add("participantCheckbox");
+		innerDiv1.append(innerDiv2);
+		innerDiv1.append(value);
+		$(".participantList").append(innerDiv1);
+	}
+	$(document).ready(function() {
+		$('.participantCheckbox').change(function() {
+			name = $(this)[0].name;
+			if($(this)[0].checked === true){
+				pickList.push(name);
+				selectedList.splice(selectedList.indexOf(name),1);
+				loadParticipantList(names);
+				loadWinnersList(selectedList);
+				loadNamesToPickList();
+				addToSelectedList();
+				if(selectedList.length === 0){
+					hideWinner();
+					hideWinnerList();
+				}
+			}
+			else{
+				pickList.splice(pickList.indexOf(name),1);
+				loadNamesToPickList();
+			}
+		});
+	});
+}
+
+function searchParticipant(search){
+	let items = names.filter(function (e) {
+		if(e.toUpperCase().startsWith(search.toUpperCase())){
+			return e;
+		}
+	});
+	loadParticipantList(items);
+}

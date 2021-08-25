@@ -48,7 +48,7 @@ body {
 	justify-content: center;
 	position: relative;
 	animation-name: totop;
-    animation-duration: 15s;
+    animation-duration: 60s;
     animation-delay: 1s;
 	animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -279,4 +279,12 @@ h1 {
   z-index: -1;
   top:0;
   right:0;
+}
+
+button.btn-close.text-reset:hover {
+    transform: rotate(90deg);
+}
+	
+button.btn-close.text-reset {
+    transition: transform 0.2s ease-in-out;
 }
