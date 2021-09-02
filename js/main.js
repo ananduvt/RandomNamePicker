@@ -45,6 +45,9 @@ function loadNamesToPickList(){
 	if(listHeight < pickHeight){
 		animeHeightSet(pickHeight - listHeight);
 	}
+	else{
+		$(".pickList").css("animation-duration","0s");
+	}
 }
 
 function animeHeightSet(value){
@@ -52,6 +55,8 @@ function animeHeightSet(value){
 	style.type = 'text/css';
 	style.innerHTML = keyFrames.replace(/A_DYNAMIC_VALUE/g, value);
 	document.getElementsByTagName('head')[0].appendChild(style);
+
+	$(".pickList").css("animation-duration",Math.floor((value/10))+"s");
 }
 
 function addToSelectedList(){
@@ -119,9 +124,18 @@ function fileRead(input) {
 	let file = input.files[0];
 	let reader = new FileReader();
 	reader.readAsText(file);
-
+	$("#fileNameDiv").removeClass("hide");
+	$("#fileName").text(file.name);
+	
 	reader.onload = function() {
-		var textByLine = reader.result.split("\r\n");
+		// console.log(reader.result);
+		if(reader.result.includes("\r")){
+			var spliter="\r\n";
+		}
+		else{
+			var spliter="\n"
+		}
+		var textByLine = reader.result.split(spliter);
 		array = textByLine.slice();
 		names = array.filter(item => item);
 		reset();
